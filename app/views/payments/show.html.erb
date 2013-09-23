@@ -1,0 +1,28 @@
+<div style="background-color:#aee">
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @payment.name %>
+</p>
+
+<p>
+  <b>Price:</b>
+  <%= @payment.price %>
+</p>
+
+<p>
+  <b>Paticipant:</b>
+  <%= @payment.paticipant_id %>
+</p>
+
+<p>
+  <b>Event:</b>
+  <%= @payment.event_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_payment_path(@payment) %> |
+<%= link_to 'Back', event_path(@payment.event_id) %>
+
+</div>
