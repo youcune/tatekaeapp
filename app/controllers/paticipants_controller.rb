@@ -2,7 +2,25 @@ class PaticipantsController < ApplicationController
   # GET /paticipants
   # GET /paticipants.json
   def index
-    @paticipants = Paticipant.all
+    #@paticipants = Paticipant.all
+
+
+    @paticipants = Paticipant.includes(:payments)
+    #@paticipants = Paticipant.all
+
+    @results =[]
+    
+    @paticipants.each do |paticipant|
+      p paticipant
+
+      @result ={}
+      @result.store(:paticipant,paticipant)
+      @result.store(:sum,paticipant.payments.sum(:price).to_i)
+      @results.push @result
+
+      p paticipant.payments.sum(:price).to_i
+
+    end
 
     respond_to do |format|
       format.html # index.html.erb

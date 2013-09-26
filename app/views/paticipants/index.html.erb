@@ -1,5 +1,7 @@
 <h1>Listing paticipants</h1>
 
+
+
 <table>
   <tr>
     <th>Name</th>
@@ -9,17 +11,30 @@
     <th></th>
   </tr>
 
+
 <% @paticipants.each do |paticipant| %>
-  <tr>
-    <td><%= paticipant.name %></td>
-    <td><%= paticipant.event_id %></td>
-    <td><%= link_to 'Show', paticipant %></td>
-    <td><%= link_to 'Edit', edit_paticipant_path(paticipant) %></td>
-    <td><%= link_to 'Destroy', paticipant, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
+  <%  paticipant.payments.each do |payment| %>
+    <tr>
+      <td><%= paticipant.name %></td>
+      <td><%= paticipant.event_id %></td>
+      <td><%= payment.name %></td>
+      <td><%= payment.price %></td>
+      <td><%= link_to 'Show', paticipant %></td>
+      <td><%= link_to 'Edit', edit_paticipant_path(paticipant) %></td>
+      <td><%= link_to 'Destroy', paticipant, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    </tr>
+  <% end %>
 <% end %>
 </table>
-
 <br />
+<table border="1">
+<% @results.each do |result| %>
+    <tr>
+      <td><%= result[:paticipant][:name] %></td>
+      <td><%= result[:paticipant][:name] %></td>
+      <td align="right"><%= number_with_delimiter(result[:sum]) %></td>
+    </tr>
+<% end %>
+</table>
 
 <%= link_to 'New Paticipant', new_paticipant_path %>

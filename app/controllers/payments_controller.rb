@@ -3,6 +3,12 @@ class PaymentsController < ApplicationController
   # GET /payments.json
   def index
     @payments = Payment.all
+    @sum1 = Payment.sum(:price,conditions:{paticipant_id:1,event_id:1})
+    @sum2 = Payment.sum(:price,conditions:{paticipant_id:1,event_id:2})
+    @sum3 = Payment.sum(:price,conditions:{paticipant_id:2})
+
+    @payments.push(@payments[0])
+    @payments.push(@payments[0])
 
     respond_to do |format|
       format.html # index.html.erb
