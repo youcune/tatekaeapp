@@ -14,8 +14,8 @@
   <% payments.each do |payment| %>
     <tr>
       <td><%= payment.name %></td>
-      <td><%= payment.price %></td>
-      <td><%= payment.paticipant_id %> <%= payment.paticipant.name %></td>
+      <td align="right"><%= number_with_delimiter(payment.price.to_i)%></td>
+      <td><%= payment.paticipant_id %></td>
       <td><%= payment.event_id %></td>
       <td><%= link_to 'Show', payment %></td>
       <td><%= link_to 'Edit', edit_payment_path(payment) %></td>
@@ -23,6 +23,16 @@
       <td></td>
     </tr>
   <% end %>
+    <tr>
+      <td></td>
+      <td align="right"><%= number_with_delimiter(event.payments_sum.to_i) %></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
 </table>
 <%= link_to '-> 支払項目を追加', new_payment_path(event_id: payments[0].event.id) %>
 <br /><br />

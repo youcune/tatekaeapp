@@ -27,14 +27,18 @@
 <% end %>
 </table>
 <br />
+
+
 <table border="1">
-<% @results.each do |result| %>
+<% @paticipants.each do |paticipant| %>
     <tr>
-      <td><%= result[:paticipant][:name] %></td>
-      <td><%= result[:paticipant][:name] %></td>
-      <td align="right"><%= number_with_delimiter(result[:sum]) %></td>
+      <td><%= paticipant.name %></td>
+      <td align="right"><%= number_with_delimiter(paticipant.payments_price_sum) %></td>
+      <td align="right"><%= number_with_delimiter(paticipant.event_payments_price_sum) %></td>
     </tr>
 <% end %>
 </table>
+
+
 
 <%= link_to 'New Paticipant', new_paticipant_path %>

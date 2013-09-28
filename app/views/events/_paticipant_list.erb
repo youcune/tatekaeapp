@@ -15,6 +15,9 @@
     <td><%= paticipant.id %></td>
     <td><%= paticipant.name %></td>
     <td><%= paticipant.event_id %></td>
+    <td align="right"><%= number_with_delimiter(paticipant.payments_price_sum) %></td>
+    <td align="right"><%= number_with_delimiter(event.payments_average) %></td>
+    <td align="right"><%= number_with_delimiter(paticipant.payments_price_sum-event.payments_average) %></td>
     <td><%= link_to 'Show', paticipant %></td>
     <td><%= link_to 'Edit', edit_paticipant_path(paticipant) %></td>
     <td><%= link_to 'Destroy', paticipant, method: :delete, data: { confirm: 'Are you sure?' } %></td>

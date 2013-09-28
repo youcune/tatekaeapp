@@ -5,21 +5,11 @@ class PaticipantsController < ApplicationController
     #@paticipants = Paticipant.all
 
 
-    @paticipants = Paticipant.includes(:payments)
+    @paticipants = Paticipant.includes(:payments,:event)
     #@paticipants = Paticipant.all
 
-    @results =[]
-    
     @paticipants.each do |paticipant|
       p paticipant
-
-      @result ={}
-      @result.store(:paticipant,paticipant)
-      @result.store(:sum,paticipant.payments.sum(:price).to_i)
-      @results.push @result
-
-      p paticipant.payments.sum(:price).to_i
-
     end
 
     respond_to do |format|

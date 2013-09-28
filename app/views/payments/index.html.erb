@@ -14,18 +14,16 @@
 <% @payments.each do |payment| %>
   <tr>
     <td><%= payment.name %></td>
-    <td><%= payment.price %></td>
+    <td><%= payment.price.to_i %></td>
     <td><%= payment.paticipant_id %></td>
     <td><%= payment.event_id %></td>
     <td><%= link_to 'Show', payment %></td>
     <td><%= link_to 'Edit', edit_payment_path(payment) %></td>
     <td><%= link_to 'Destroy', payment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td><%= link_to 'Destroy', payment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>
 <% end %>
 </table>
-<p><%= @sum1 %></p>
-<p><%= @sum2 %></p>
-<p><%= @sum3 %></p>
 <br />
 
 <%= link_to 'New Payment', new_payment_path %>

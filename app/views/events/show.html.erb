@@ -12,10 +12,13 @@
 </p>
 
 <p>
-	<%= render partial:"payment_list",locals:{payments:Payment.find_all_by_event_id(@event.id)} %>
+	<%= render partial:"payment_list",locals:{
+		payments:Payment.find_all_by_event_id(@event.id),
+		event: @event} %>
 </p>
 <p>
-	<%= render partial:"paticipant_list",locals:{paticipants:Paticipant.find_all_by_event_id(@event.id)} %>
+	<%= render partial:"paticipant_list",locals:{
+		paticipants:Paticipant.find_all_by_event_id(@event.id),event: @event} %>
 </p>
 <%= link_to 'Edit', edit_event_path(@event) %> |
 <%= link_to 'Back', events_path %>
