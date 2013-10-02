@@ -1,8 +1,8 @@
-<div style="background-color:#aee">
+<div style="background-color:#cee">
 <h1>Editing payment</h1>
 
 <%= render 'form' %>
 
-<%= link_to 'Payment', @payment %> |
-<%= link_to 'Event', event_path(@payment.event_id) %>
+<p><%= link_to '削除', @payment, method: :delete, data: { confirm: 'Are you sure?' } %></p>
+<%= link_to 'イベントに戻る', event_path(@payment.event_id) %>
 </div>

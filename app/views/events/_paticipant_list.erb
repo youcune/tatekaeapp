@@ -1,11 +1,12 @@
-<h1>Listing paticipants</h1>
+<div style="background-color:#ece">
+<h3>参加者一覧</h1>
 
-<table>
+<table border="0"  cellpadding="2px">
   <tr>
     <th>ID</th>
     <th>Name</th>
-    <th>Event</th>
-    <th></th>
+    <th>立替金</th>
+    <th>精算金</th>
     <th></th>
     <th></th>
   </tr>
@@ -14,17 +15,21 @@
   <tr>
     <td><%= paticipant.id %></td>
     <td><%= paticipant.name %></td>
-    <td><%= paticipant.event_id %></td>
     <td align="right"><%= number_with_delimiter(paticipant.payments_price_sum) %></td>
-    <td align="right"><%= number_with_delimiter(event.payments_average) %></td>
-    <td align="right"><%= number_with_delimiter(paticipant.payments_price_sum-event.payments_average) %></td>
-    <td><%= link_to 'Show', paticipant %></td>
-    <td><%= link_to 'Edit', edit_paticipant_path(paticipant) %></td>
-    <td><%= link_to 'Destroy', paticipant, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td align="right">
+      <% if paticipant.payments_price_sum > event.payments_average then %>
+      <font color="blue"><%= number_with_delimiter(paticipant.payments_price_sum-event.payments_average) %>(受取)</font>
+      <% else %>
+      <font color="red"><%= number_with_delimiter(paticipant.payments_price_sum-event.payments_average) %>(支払)</font>
+      <% end %>
+    </td>
+    <td><%= link_to '編集', edit_paticipant_path(paticipant) %></td>
+    <td><%= link_to '削除', paticipant, method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New Paticipant', new_paticipant_path %>
+<%= link_to '-> 参加者を追加', new_paticipant_path(event_id: event.id) %>
+</div>

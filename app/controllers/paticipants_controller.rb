@@ -33,6 +33,7 @@ class PaticipantsController < ApplicationController
   # GET /paticipants/new.json
   def new
     @paticipant = Paticipant.new
+    @paticipant.event_id = params[:event_id]
 
     respond_to do |format|
       format.html # new.html.erb

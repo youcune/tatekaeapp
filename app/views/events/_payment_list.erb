@@ -1,6 +1,6 @@
-<div style="background-color:#aee">
+<div style="background-color:#cee">
 <h3>支払項目</h3>
-<table>
+<table border="0">
   <tr>
     <th>Name</th>
     <th>Price</th>
@@ -8,32 +8,36 @@
     <th>Event</th>
     <th></th>
     <th></th>
-    <th></th>
-    <th></th>
   </tr>
-  <% payments.each do |payment| %>
-    <tr>
-      <td><%= payment.name %></td>
-      <td align="right"><%= number_with_delimiter(payment.price.to_i)%></td>
-      <td><%= payment.paticipant_id %></td>
-      <td><%= payment.event_id %></td>
-      <td><%= link_to 'Show', payment %></td>
-      <td><%= link_to 'Edit', edit_payment_path(payment) %></td>
-      <td><%= link_to 'Destroy', payment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      <td></td>
-    </tr>
-  <% end %>
-    <tr>
-      <td></td>
-      <td align="right"><%= number_with_delimiter(event.payments_sum.to_i) %></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
+  <% if payments.size>0 then %>
+    <% payments.each do |payment| %>
+      <tr>
+        <td><%= payment.name %></td>
+        <td align="right"><%= number_with_delimiter(payment.price.to_i)%></td>
+        <td><%= payment.paticipant_id %></td>
+        <td><%= payment.event_id %></td>
+        <td><%= link_to '編集', edit_payment_path(payment) %></td>
+        <td><%= link_to '削除', payment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+      <tr>
+        <td align="right"><b>計</b></td>
+        <td align="right"><%= number_with_delimiter(event.payments_sum.to_i) %></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td align="right"><b>一人</b></td>
+        <td align="right"><%= number_with_delimiter(event.payments_average.to_i) %></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    <% end %>
 </table>
-<%= link_to '-> 支払項目を追加', new_payment_path(event_id: payments[0].event.id) %>
-<br /><br />
+<%= link_to '-> 支払項目を追加', new_payment_path(event_id: event.id) %>
+<event /><br />
 </div>

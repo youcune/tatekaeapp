@@ -1,6 +1,9 @@
+<div style="background-color:#ece">
+
 <h1>Editing paticipant</h1>
 
 <%= render 'form' %>
 
-<%= link_to 'Show', @paticipant %> |
-<%= link_to 'Back', paticipants_path %>
+<%= link_to 'Back', event_path(@paticipant.event_id) %>
+
+</div>

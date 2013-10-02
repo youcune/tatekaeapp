@@ -4,10 +4,10 @@ class Event < ActiveRecord::Base
   has_many :paticipants
 
   def payments_sum
-  	self.payments.sum(:price)
+  	self.payments.sum(:price).to_i
   end
 
   def payments_average
-  	p (payments_sum / self.paticipants.count).to_i
+  	(payments_sum / self.paticipants.count).to_i
   end
 end

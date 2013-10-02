@@ -3,12 +3,6 @@ class PaymentsController < ApplicationController
   # GET /payments.json
   def index
     @payments = Payment.all
-    @sum1 = Payment.sum(:price,conditions:{paticipant_id:1,event_id:1})
-    @sum2 = Payment.sum(:price,conditions:{paticipant_id:1,event_id:2})
-    @sum3 = Payment.sum(:price,conditions:{paticipant_id:2})
-
-    @payments.push(@payments[0])
-    @payments.push(@payments[0])
 
     respond_to do |format|
       format.html # index.html.erb
@@ -67,7 +61,8 @@ class PaymentsController < ApplicationController
 
     respond_to do |format|
       if @payment.update_attributes(params[:payment])
-        format.html { redirect_to @payment, notice: 'Payment was successfully updated.' }
+        #format.html { redirect_to @payment, notice: 'Payment was successfully updated.' }
+        format.html { redirect_to :controller => 'events',:action =>'show',:id=>@payment.event_id, notice: 'Payment was successfully updated.'}
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

@@ -1,5 +1,5 @@
-<div style="background-color:#eff">
-<p id="notice"><%= notice %></p>
+<div style="background-color:#ffd">
+<p id="notice"><%= @notice %></p>
 
 <p>
   <b>Name:</b>
@@ -18,7 +18,11 @@
 </p>
 <p>
 	<%= render partial:"paticipant_list",locals:{
-		paticipants:Paticipant.find_all_by_event_id(@event.id),event: @event} %>
+		paticipants:Paticipant.find_all_by_event_id(@event.id),
+		event: @event} %>
 </p>
-<%= link_to 'Edit', edit_event_path(@event) %> |
-<%= link_to 'Back', events_path %>
+<p>
+	<%= link_to 'イベントを編集', edit_event_path(@event) %><br />
+	<%= link_to '<-イベント一覧', events_path %>
+</p>
+

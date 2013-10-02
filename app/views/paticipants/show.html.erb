@@ -10,6 +10,4 @@
   <%= @paticipant.event_id %>
 </p>
 
-
-<%= link_to 'Edit', edit_paticipant_path(@paticipant) %> |
-<%= link_to 'Back', paticipants_path %>
+<%= link_to 'Back', event_path(@paticipant.event_id) %>
