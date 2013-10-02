@@ -11,24 +11,22 @@
     <th></th>
   </tr>
 
-
+<%= @paticipants.count %>
 <% @paticipants.each do |paticipant| %>
-  <%  paticipant.payments.each do |payment| %>
     <tr>
       <td><%= paticipant.name %></td>
       <td><%= paticipant.event_id %></td>
-      <td><%= payment.name %></td>
-      <td><%= payment.price %></td>
+      <td><%= paticipant.event.name %></td>
       <td><%= link_to 'Show', paticipant %></td>
       <td><%= link_to 'Edit', edit_paticipant_path(paticipant) %></td>
       <td><%= link_to 'Destroy', paticipant, method: :delete, data: { confirm: 'Are you sure?' } %></td>
     </tr>
-  <% end %>
+  
 <% end %>
 </table>
 <br />
 
-
+<!--
 <table border="1">
 <% @paticipants.each do |paticipant| %>
     <tr>
@@ -38,6 +36,7 @@
     </tr>
 <% end %>
 </table>
+-->
 
 
 

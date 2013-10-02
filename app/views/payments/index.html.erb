@@ -17,6 +17,7 @@
     <td><%= payment.price.to_i %></td>
     <td><%= payment.paticipant_id %></td>
     <td><%= payment.event_id %></td>
+    <td><%= payment.event.name %></td>
     <td><%= link_to 'Show', payment %></td>
     <td><%= link_to 'Edit', edit_payment_path(payment) %></td>
     <td><%= link_to 'Destroy', payment, method: :delete, data: { confirm: 'Are you sure?' } %></td>

@@ -7,14 +7,9 @@ class PaticipantsController < ApplicationController
 
     puts'aaa'
     
-    @paticipants = Paticipant.includes(:payments,:event)
+    @paticipants = Paticipant.all
     #@paticipants = Paticipant.all
-    puts @paticipants
-    puts 'aaa'
 
-    @paticipants.each do |paticipant|
-      p paticipant
-    end
 
     respond_to do |format|
       format.html # index.html.erb
@@ -58,7 +53,7 @@ class PaticipantsController < ApplicationController
     respond_to do |format|
       if @paticipant.save
         #format.html { redirect_to @paticipant, notice: 'Paticipant was successfully created.' }
-        format.html { redirect_to :controller => 'events',:action =>'show',:id=>@paticipant.event, notice: 'Paticipant was successfully added.'}
+        format.html { redirect_to :controller => 'events',:action =>'show',:id=>@paticipant.event.id, notice: 'Paticipant was successfully added.'}
         format.json { render json: @paticipant, status: :created, location: @paticipant }
       else
         format.html { render action: "new" }

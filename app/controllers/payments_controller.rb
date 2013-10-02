@@ -45,7 +45,7 @@ class PaymentsController < ApplicationController
 
     respond_to do |format|
       if @payment.save
-        format.html { redirect_to @payment, notice: 'Payment was successfully created.' }
+        format.html { redirect_to :controller => 'events',:action =>'show',:id=>@payment.event.id, notice: 'Payment was successfully added.' }
         format.json { render json: @payment, status: :created, location: @payment }
       else
         format.html { render action: "new" }
@@ -77,9 +77,6 @@ class PaymentsController < ApplicationController
     @payment = Payment.find(params[:id])
     @payment.destroy
 
-    respond_to do |format|
-      format.html { redirect_to payments_url }
-      format.json { head :no_content }
-    end
+    redirect_to :controller => 'events',:action =>'show',:id=>@payment.event.id, notice: 'Payment was successfully deleted.'
   end
 end

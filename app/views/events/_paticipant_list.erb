@@ -31,8 +31,16 @@
 <% end %>
 </table>
 
-<br />
-
-<%= link_to '-> 参加者を1人追加', new_paticipant_path(event_id: event.id) %><br />
-<%= link_to '-> 参加者をまとめて追加', paticipants_create_path(event_id: event.id,num: 2) %>
+<p>
+  <%= form_tag('/paticipants/create') do%>
+  参加者をまとめて追加<br />
+  <%= text_field_tag(:num,3,:size=>'3') %>人
+  <%= submit_tag("追加") %>
+  <%= hidden_field_tag(:event_id,event.id) %>
+  <% end %>
+</p>
+<p>
+  <%= link_to '-> 参加者を名前指定して追加', new_paticipant_path(event_id: event.id) %>
+  <br /><br />
+</p>
 </div>
