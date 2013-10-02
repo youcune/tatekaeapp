@@ -19,8 +19,10 @@
     <td align="right">
       <% if paticipant.payments_price_sum > event.payments_average then %>
       <font color="blue"><%= number_with_delimiter(paticipant.payments_price_sum-event.payments_average) %>(受取)</font>
+      <% elsif paticipant.payments_price_sum < event.payments_average then%>
+      <font color="red"><%= number_with_delimiter(-paticipant.payments_price_sum+event.payments_average) %>(支払)</font>
       <% else %>
-      <font color="red"><%= number_with_delimiter(paticipant.payments_price_sum-event.payments_average) %>(支払)</font>
+      0
       <% end %>
     </td>
     <td><%= link_to '編集', edit_paticipant_path(paticipant) %></td>

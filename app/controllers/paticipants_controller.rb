@@ -53,7 +53,8 @@ class PaticipantsController < ApplicationController
 
     respond_to do |format|
       if @paticipant.save
-        format.html { redirect_to @paticipant, notice: 'Paticipant was successfully created.' }
+        #format.html { redirect_to @paticipant, notice: 'Paticipant was successfully created.' }
+        format.html { redirect_to :controller => 'events',:action =>'show',:id=>@paticipant.event, notice: 'Paticipant was successfully added.'}
         format.json { render json: @paticipant, status: :created, location: @paticipant }
       else
         format.html { render action: "new" }
@@ -69,7 +70,8 @@ class PaticipantsController < ApplicationController
 
     respond_to do |format|
       if @paticipant.update_attributes(params[:paticipant])
-        format.html { redirect_to @paticipant, notice: 'Paticipant was successfully updated.' }
+        #format.html { redirect_to @paticipant, notice: 'Paticipant was successfully updated.' }
+        format.html { redirect_to :controller => 'events',:action =>'show',:id=>@paticipant.event, notice: 'Paticipant was successfully updated.'}
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

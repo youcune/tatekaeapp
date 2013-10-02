@@ -5,7 +5,6 @@
     <th>Name</th>
     <th>Price</th>
     <th>Paticipant</th>
-    <th>Event</th>
     <th></th>
     <th></th>
   </tr>
@@ -14,8 +13,7 @@
       <tr>
         <td><%= payment.name %></td>
         <td align="right"><%= number_with_delimiter(payment.price.to_i)%></td>
-        <td><%= payment.paticipant_id %></td>
-        <td><%= payment.event_id %></td>
+        <td><%= payment.paticipant_id %> <%= payment.paticipant.name %></td>
         <td><%= link_to '編集', edit_payment_path(payment) %></td>
         <td><%= link_to '削除', payment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
@@ -26,12 +24,10 @@
         <td></td>
         <td></td>
         <td></td>
-        <td></td>
       </tr>
       <tr>
-        <td align="right"><b>一人</b></td>
+        <td align="right"><b>一人あたり</b></td>
         <td align="right"><%= number_with_delimiter(event.payments_average.to_i) %></td>
-        <td></td>
         <td></td>
         <td></td>
         <td></td>
