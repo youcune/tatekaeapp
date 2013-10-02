@@ -1,24 +1,27 @@
 <div style="background-color:#cee">
 <h3>支払項目</h3>
 <table border="0">
-  <tr>
-    <th>Name</th>
-    <th>Price</th>
-    <th>Paticipant</th>
+  <tr align="left">
+    <th>No.</th>
+    <th>参加者名</th>
+    <th>支払額</th>
+    <th>支払者</th>
     <th></th>
     <th></th>
   </tr>
   <% if payments.size>0 then %>
-    <% payments.each do |payment| %>
+    <% payments.each_with_index do |payment,i| %>
       <tr>
+        <td><%= i+1 %></td>
         <td><%= payment.name %></td>
         <td align="right"><%= number_with_delimiter(payment.price.to_i)%></td>
-        <td><%= payment.paticipant_id %> <%= payment.paticipant.name %></td>
+        <td><%= payment.paticipant.name %></td>
         <td><%= link_to '編集', edit_payment_path(payment) %></td>
         <td><%= link_to '削除', payment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
       <tr>
+        <td></td>
         <td align="right"><b>計</b></td>
         <td align="right"><%= number_with_delimiter(event.payments_sum.to_i) %></td>
         <td></td>
@@ -26,6 +29,7 @@
         <td></td>
       </tr>
       <tr>
+        <td></td>
         <td align="right"><b>一人あたり</b></td>
         <td align="right"><%= number_with_delimiter(event.payments_average.to_i) %></td>
         <td></td>
@@ -34,6 +38,10 @@
       </tr>
     <% end %>
 </table>
+<% if event.paticipants.size>0 %>
 <%= link_to '-> 支払項目を追加', new_payment_path(event_id: event.id) %>
+<% elsif %>
+<font size="2" color="red">※最初に参加者を追加してください</font>
+<% end %>
 <event /><br />
 </div>

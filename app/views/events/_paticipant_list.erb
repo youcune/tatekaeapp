@@ -2,18 +2,18 @@
 <h3>参加者一覧</h1>
 
 <table border="0"  cellpadding="2px">
-  <tr>
-    <th>ID</th>
-    <th>Name</th>
-    <th>立替金</th>
+  <tr align="left">
+    <th>No.</th>
+    <th>名前</th>
+    <th>支払金</th>
     <th>精算金</th>
     <th></th>
     <th></th>
   </tr>
 
-<% paticipants.each do |paticipant| %>
+<% paticipants.each_with_index do |paticipant,i| %>
   <tr>
-    <td><%= paticipant.id %></td>
+    <td><%= i+1 %></td>
     <td><%= paticipant.name %></td>
     <td align="right"><%= number_with_delimiter(paticipant.payments_price_sum) %></td>
     <td align="right">
