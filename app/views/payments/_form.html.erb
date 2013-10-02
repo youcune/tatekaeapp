@@ -21,8 +21,11 @@
   </div>
   <div class="field">
     <%= f.label :paticipant_id %><br />
-    <%= f.number_field :paticipant_id %>
+    <%= f.collection_select :paticipant_id,
+      Paticipant.find(:all,   conditions: ["event_id = ?",@payment.event_id] ),
+      :id,:name %>
   </div>
+
   <div class="field">
     <%= f.hidden_field :event_id %>
   </div>
