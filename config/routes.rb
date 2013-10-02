@@ -1,10 +1,9 @@
 Tatekaeapp::Application.routes.draw do
+
+
+  match 'paticipants/create/' => 'paticipants#create_plural'
   resources :payments
-
-
   resources :paticipants
-
-
   resources :events
 
 

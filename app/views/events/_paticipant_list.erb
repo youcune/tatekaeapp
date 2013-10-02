@@ -33,5 +33,6 @@
 
 <br />
 
-<%= link_to '-> 参加者を追加', new_paticipant_path(event_id: event.id) %>
+<%= link_to '-> 参加者を1人追加', new_paticipant_path(event_id: event.id) %><br />
+<%= link_to '-> 参加者をまとめて追加', paticipants_create_path(event_id: event.id,num: 2) %>
 </div>

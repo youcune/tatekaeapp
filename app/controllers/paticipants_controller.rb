@@ -1,12 +1,16 @@
+# -*- coding: utf-8 -*-
 class PaticipantsController < ApplicationController
   # GET /paticipants
   # GET /paticipants.json
   def index
     #@paticipants = Paticipant.all
 
-
+    puts'aaa'
+    
     @paticipants = Paticipant.includes(:payments,:event)
     #@paticipants = Paticipant.all
+    puts @paticipants
+    puts 'aaa'
 
     @paticipants.each do |paticipant|
       p paticipant
@@ -63,6 +67,19 @@ class PaticipantsController < ApplicationController
     end
   end
 
+  # POST /
+  def create_plural
+    for  i in 1..params[:num].to_i do
+      @paticipant = Paticipant.new
+      @paticipant.event_id = params[:event_id]
+      @paticipant.name = "参加者#{Event.find(params[:event_id]).paticipants.count+1}"
+      #Event.find(params[:event_id]).paticipants.count
+      @paticipant.save
+    end
+    redirect_to :controller => 'events',:action =>'show',:id=>@paticipant.event.id, notice: "#{params[:num]} Paticipants were successfully updated."
+    
+  end
+
   # PUT /paticipants/1
   # PUT /paticipants/1.json
   def update
@@ -85,10 +102,7 @@ class PaticipantsController < ApplicationController
   def destroy
     @paticipant = Paticipant.find(params[:id])
     @paticipant.destroy
+    redirect_to :controller => 'events',:action =>'show',:id=>@paticipant.event.id, notice: 'Paticipant was successfully deleted.'
 
-    respond_to do |format|
-      format.html { redirect_to paticipants_url }
-      format.json { head :no_content }
-    end
   end
 end
