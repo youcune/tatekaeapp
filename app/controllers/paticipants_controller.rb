@@ -5,7 +5,6 @@ class PaticipantsController < ApplicationController
   def index
     #@paticipants = Paticipant.all
 
-    puts'aaa'
     
     @paticipants = Paticipant.all
     #@paticipants = Paticipant.all

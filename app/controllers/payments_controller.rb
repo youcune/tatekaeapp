@@ -14,7 +14,7 @@ class PaymentsController < ApplicationController
   # GET /payments/1.json
   def show
     @payment = Payment.find(params[:id])
-    @calc = 5
+    @paticipants = Paticipant.find_all_by_event_id(@payment.event_id)
 
     respond_to do |format|
       format.html # show.html.erb
@@ -36,6 +36,7 @@ class PaymentsController < ApplicationController
   # GET /payments/1/edit
   def edit
     @payment = Payment.find(params[:id])
+    @paticipants = Paticipant.find_all_by_event_id(@payment.event_id)
   end
 
   # POST /payments
@@ -57,7 +58,51 @@ class PaymentsController < ApplicationController
   # PUT /payments/1
   # PUT /payments/1.json
   def update
+    #paymentを更新
     @payment = Payment.find(params[:id])
+
+    @paticipants = @payment.event.paticipants
+
+    #paitcipantごとに処理を行う
+    @paticipants.each do |paticipant|
+      p '**********************'
+      p paticipant.id
+      #処理用に指定payment、paticipantごとのexemptionを検索する
+      @exemption = Exemption.find(:first,:conditions =>["paticipant_id=? and payment_id=?",paticipant.id,@payment.id])
+      p @exemption
+      p params[:check_payment][:"#{paticipant.id}"]
+      if params[:check_payment][:"#{paticipant.id}"] == nil
+        #チェックされていない場合(=支払を行なわない・免除(exemption)がある人)：データがある状態が正しい
+        #既存のexemptionデータがない場合、データを登録する
+        p "checked"
+        if @exemption ==nil 
+          @exemption  = Exemption.new(paticipant_id:paticipant.id,payment_id:@payment.id)
+          p @exemption 
+          p "saved"
+          @exemption.save
+        end  
+        #既存のexemptionデータがあるい場合、データを登録する
+            
+      else
+        #チェックされている(支払を行う人)場合：データがない状態が正しい
+        p "no check"
+        #既存のexemptionデータがある場合、exemptionを削除する
+        if @exemption !=nil 
+          p @exemption 
+          @exemption.destroy
+          p "desctoryed"
+        end  
+        #既存のexemptionデータがない場合、何も行わない
+      end
+    end
+
+    
+    if @check_payments != nil
+      @check_payments.each do | check_payment_id |
+       
+      end 
+    end
+
 
     respond_to do |format|
       if @payment.update_attributes(params[:payment])

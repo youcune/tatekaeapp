@@ -21,6 +21,26 @@
   <%= @payment.event_id %>
 </p>
 
+<table border="0"  cellpadding="2px">
+  <tr align="left">
+    <th>No.</th>
+    <th>名前</th>
+    <th>支払金</th>
+  </tr>
+
+<% @paticipants.each_with_index do |paticipant,i| %>
+  <tr>
+    <td><%= i+1 %></td>
+    <td><%= paticipant.name %></td>
+    <td align="right"><%= number_with_delimiter(paticipant.check_payment_by_id(@payment.id)) %></td>
+    <td align="right"></td>
+  </tr>
+<% end %>
+</table>
+
+<div>
+	支払人数：<%= @payment.payer_num %>
+</div>
 
 <%= link_to 'Edit', edit_payment_path(@payment) %> |
 <%= link_to 'Back', event_path(@payment.event_id) %>

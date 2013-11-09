@@ -32,4 +32,24 @@
   <div class="actions">
     <%= f.submit %>
   </div>
+
+  <table border="0"  cellpadding="2px">
+    <% @paticipants.each_with_index do |paticipant,i| %>
+    <tr>
+      <td><%= i+1 %></td>
+      <td><%= paticipant.name %></td>
+      <td><%= check_box_tag "check_payment[#{paticipant.id}]", paticipant.id,paticipant.check_payment_by_id(@payment.id)%></td>
+    </tr>
+
+    <% end %>
+  </table>
+
 <% end %>
+
+
+<div>
+  <br />
+  支払人数：<%= @payment.payer_num %><br />
+  支払金額/人：<%= number_with_precision(@payment.price_per_paticipant,precision:0) %><br />
+</div>
+
