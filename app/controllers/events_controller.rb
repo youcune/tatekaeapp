@@ -1,3 +1,4 @@
+# coding: utf-8
 class EventsController < ApplicationController
   # GET /events
   # GET /events.json
