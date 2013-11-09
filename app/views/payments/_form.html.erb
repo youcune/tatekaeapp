@@ -36,12 +36,12 @@
   <table border="0"  cellpadding="2px">
     <% if @paticipants != nil %>
       <% @paticipants.each_with_index do |paticipant,i| %>
-      <tr>
-        <td><%= i+1 %></td>
-        <td><%= paticipant.name %></td>
-        <td><%= check_box_tag "check_payment[#{paticipant.id}]", paticipant.id,paticipant.check_payment_by_id(@payment.id)%></td>
-      </tr>
-
+        <tr>
+          <td><%= i+1 %></td>
+          <td><%= paticipant.name %></td>
+          <td><%= check_box_tag "check_payment[#{paticipant.id}]", paticipant.id,
+            paticipant.check_payment_by_id(@payment.id)%></td>
+        </tr>
       <% end %>
     <% end %>
   </table>
