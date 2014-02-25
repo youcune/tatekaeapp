@@ -40,7 +40,7 @@
           <td><%= i+1 %></td>
           <td><%= paticipant.name %></td>
           <td><%= check_box_tag "check_payment[#{paticipant.id}]", paticipant.id,
-            paticipant.check_payment_by_id(@payment.id)%></td>
+            paticipant.check_payment_exemption?(@payment.id)%></td>
         </tr>
       <% end %>
     <% end %>

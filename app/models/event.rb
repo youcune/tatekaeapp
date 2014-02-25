@@ -10,4 +10,15 @@ class Event < ActiveRecord::Base
   def payments_average
   	(payments_sum / self.paticipants.count).to_i
   end
+
+  def sum_payment_of_paticipant(paticipant_id)
+  	sum = 0
+  	payments.each do |p|
+  		puts p.name
+  		puts p.price
+  		puts p.payment_of_paticipant(paticipant_id)
+  		sum += p.payment_of_paticipant(paticipant_id)
+  	end
+  	sum.to_i
+  end
 end
