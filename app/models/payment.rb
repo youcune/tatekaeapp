@@ -12,15 +12,15 @@ class Payment < ActiveRecord::Base
   	self.price / payer_num
   end
 
-  def check_duty_by_user_id(user_id)
-
-    
-  end
-
-
   def payment_of_paticipant(paticipant_id)
-    exemption = Exemption.find(:first,:conditions =>["paticipant_id=? and payment_id=?",paticipant_id,self.id])
-    if exemption != nil
+    flg = false
+    exemptions.each do |e|
+      flg = true if e.paticipant_id == paticipant_id 
+    end
+    #exemption = Exemption.find(:first,:conditions =>["paticipant_id=? and payment_id=?",paticipant_id,self.id])
+
+    #if exemption != nil
+    if flg
       0
     else
       price_per_paticipant
