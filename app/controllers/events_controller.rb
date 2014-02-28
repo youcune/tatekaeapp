@@ -24,6 +24,17 @@ class EventsController < ApplicationController
     end
   end
 
+  def show_by_str_id
+  @event = Event.find_by_str_id(params[:str_id],:include => {:payments => :exemptions})
+  @notice = params[:notice]
+  #p @notice
+
+  respond_to do |format|
+    format.html # show.html.erb
+    format.json { render json: @event }
+  end
+  end
+
   # GET /events/new
   # GET /events/new.json
   def new
@@ -44,7 +55,9 @@ class EventsController < ApplicationController
   # POST /events.json
   def create
     @event = Event.new(params[:event])
-
+    str_array = ('a'..'z').to_a + ('A'..'Z').to_a + ('0'..'9').to_a
+    random_token = ( Array.new(32){ str_array[rand(str_array.size)] } ).join
+    @event.str_id = random_token
     respond_to do |format|
       if @event.save
         format.html { redirect_to @event, notice: 'Event was successfully created.' }

@@ -1,0 +1,29 @@
+<div style="background-color:#ffd" width="100%">
+<div style="background-color:#ffd" width="100%">
+<p id="notice"><%= @notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @event.name %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @event.description %>
+</p>
+
+<p>
+	<%= render partial:"payment_list",locals:{
+		payments: @event.payments,
+		event: @event} %>
+</p>
+<p>
+	<%= render partial:"paticipant_list",locals:{
+		paticipants: @event.paticipants,
+		event: @event} %>
+</p>
+<p>
+	<%= link_to 'イベントを編集', edit_event_path(@event) %><br />
+	<%= link_to '<- イベント一覧', events_path %>
+</p>
+

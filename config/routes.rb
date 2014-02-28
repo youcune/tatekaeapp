@@ -2,6 +2,7 @@ Tatekaeapp::Application.routes.draw do
 
 
   match 'paticipants/create/' => 'paticipants#create_plural'
+  match 'events/show/:str_id' => 'events#show_by_str_id'
   resources :payments
   resources :paticipants
   resources :events

@@ -1,5 +1,5 @@
 class Event < ActiveRecord::Base
-  attr_accessible :description, :name
+  attr_accessible :description, :name, :str_id
   has_many :payments
   has_many :paticipants
 
