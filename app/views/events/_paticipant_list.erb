@@ -1,5 +1,5 @@
 <div style="background-color:#ece" width="100%">
-<h3>参加者一覧</h1>
+<h3>参加者一覧</h3>
 
 <script type="text/javascript">
 <!--
@@ -66,17 +66,24 @@ function testFunc(){
 <% end %>
 </table>
 <input type="button" value="内訳表示" onclick="testFunc();" />
-
+<br /><br />
+<h3>参加者を追加</h3>
 <p>
-  <%= form_tag('/paticipants/create') do%>
-  参加者をまとめて追加<br />
+  <%= form_tag(create_plural_paticipants_path) do%>
+  人数を指定して追加<br />
   <%= text_field_tag(:num,3,:size=>'3') %>人
   <%= submit_tag("追加") %>
   <%= hidden_field_tag(:event_id,event.id) %>
+  <%= hidden_field_tag(:event_str_id,event.str_id) %>
   <% end %>
 </p>
 <p>
-  <%= link_to '-> 参加者を名前指定して追加', new_paticipant_path(event_id: event.id) %>
-  <br /><br />
+  <%= form_tag(create_plural_paticipants_with_name_path) do%>
+  名前を記入して追加<br />
+  <%= text_area_tag(:names, "山田 太郎\nJohn", cols: 16,rows: 4)%><br />
+  <%= submit_tag("追加") %>
+  <%= hidden_field_tag(:event_id,event.id) %>
+  <%= hidden_field_tag(:event_str_id,event.str_id) %>
+  <% end %>
 </p>
 </div>

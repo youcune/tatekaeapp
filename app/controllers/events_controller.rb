@@ -1,7 +1,10 @@
 # coding: utf-8
 class EventsController < ApplicationController
 
-
+  # GET /events/
+  def index
+    
+  end
 
   # GET /events/1
   def show
@@ -27,10 +30,7 @@ class EventsController < ApplicationController
     str_array = ('a'..'z').to_a + ('A'..'Z').to_a + ('0'..'9').to_a
     random_token = ( Array.new(32){ str_array[rand(str_array.size)] } ).join
     @event.str_id = random_token
-    result = @event.save
-    p @event
-    p result
-    if result
+    if @event.save
       redirect_to event_path(@event.str_id), notice: 'Event was successfully created.' 
     else
       render action: "new" 

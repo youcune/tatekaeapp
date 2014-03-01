@@ -63,16 +63,26 @@ class PaticipantsController < ApplicationController
 
   # POST /
   def create_plural
+    event=Event.find(params[:event_id])
     for  i in 1..params[:num].to_i do
-      @paticipant = Paticipant.new
-      @paticipant.event_id = params[:event_id]
-      @paticipant.name = "参加者#{Event.find(params[:event_id]).paticipants.count+1}"
-      #Event.find(params[:event_id]).paticipants.count
-      @paticipant.save
+      paticipant = Paticipant.new(event_id: params[:event_id], name: "参加者#{event.paticipants.count+1}")
+      paticipant.save
     end
-    redirect_to event_path(@paticipant.event.str_id), notice: "#{params[:num]} Paticipants were successfully updated."
-    
+    redirect_to event_path(params[:event_str_id]), notice: "#{params[:num]} Paticipants were successfully updated."
   end
+
+  # POST /
+  def create_plural_with_name
+    event=Event.find(params[:event_id])
+    names=params[:names].split("\r\n")
+    names.each do |name_str|
+      if(!name_str.blank?)
+        Paticipant.new(event_id: params[:event_id], name: name_str).save
+      end
+    end
+    redirect_to event_path(params[:event_str_id]), notice: "#{params[:num]} Paticipants were successfully updated."
+  end
+
 
   # PUT /paticipants/1
   def update
