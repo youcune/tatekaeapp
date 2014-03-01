@@ -1,5 +1,7 @@
 Tatekaeapp::Application.routes.draw do
 
+  #get "admin/events_index"
+  match 'events/' => 'admin#events_index' , via: :get
   match 'paticipants/create/' => 'paticipants#create_plural' 
   
   #match 'events/:str_id/edit' => 'events#edit',  as: 'edit_event',:via => :get

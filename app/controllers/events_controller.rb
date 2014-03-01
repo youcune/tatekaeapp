@@ -1,17 +1,12 @@
 # coding: utf-8
 class EventsController < ApplicationController
-  # GET /events
-  def index
-    @events = Event.includes(:paticipants,:payments)
 
-  end
 
 
   # GET /events/1
   def show
     @event = Event.find_by_str_id(params[:id],:include => {:payments => :exemptions})
     @notice = params[:notice]
-
   end
 
 
