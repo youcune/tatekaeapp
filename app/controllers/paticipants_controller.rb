@@ -70,33 +70,24 @@ class PaticipantsController < ApplicationController
       #Event.find(params[:event_id]).paticipants.count
       @paticipant.save
     end
-    redirect_to :controller => 'events',:action =>'show',:id=>@paticipant.event.id, notice: "#{params[:num]} Paticipants were successfully updated."
+    redirect_to event_path(@paticipant.event.str_id), notice: "#{params[:num]} Paticipants were successfully updated."
     
   end
 
   # PUT /paticipants/1
-  # PUT /paticipants/1.json
   def update
     @paticipant = Paticipant.find(params[:id])
-
-    respond_to do |format|
-      if @paticipant.update_attributes(params[:paticipant])
-        #format.html { redirect_to @paticipant, notice: 'Paticipant was successfully updated.' }
-        format.html { redirect_to :controller => 'events',:action =>'show',:id=>@paticipant.event, notice: 'Paticipant was successfully updated.'}
-        format.json { head :no_content }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @paticipant.errors, status: :unprocessable_entity }
-      end
+    if @paticipant.update_attributes(params[:paticipant])
+      redirect_to :controller => 'events',:action =>'show',:id=>@paticipant.event.str_id, notice: 'Paticipant was successfully updated.'
+    else
+      render action: "edit" 
     end
   end
 
   # DELETE /paticipants/1
-  # DELETE /paticipants/1.json
   def destroy
     @paticipant = Paticipant.find(params[:id])
     @paticipant.destroy
-    redirect_to :controller => 'events',:action =>'show',:id=>@paticipant.event.id, notice: 'Paticipant was successfully deleted.'
-
+    redirect_to :controller => 'events',:action =>'show',:id=>@paticipant.event.str_id, notice: 'Paticipant was successfully deleted.'
   end
 end

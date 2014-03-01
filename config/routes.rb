@@ -1,8 +1,11 @@
 Tatekaeapp::Application.routes.draw do
 
+  match 'paticipants/create/' => 'paticipants#create_plural' 
+  
+  #match 'events/:str_id/edit' => 'events#edit',  as: 'edit_event',:via => :get
+  #match 'events' => 'events#index',  as: 'events',:via => :get
+  #match 'events' => 'events#create',  :via => :post
 
-  match 'paticipants/create/' => 'paticipants#create_plural'
-  match 'events/show/:str_id' => 'events#show_by_str_id'
   resources :payments
   resources :paticipants
   resources :events

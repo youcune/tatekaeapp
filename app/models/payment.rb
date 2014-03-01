@@ -9,6 +9,8 @@ class Payment < ActiveRecord::Base
   end
 
   def price_per_paticipant
+    p "self.price=#{self.price}"
+    p "payer_num=#{payer_num}"
   	self.price / payer_num
   end
 
