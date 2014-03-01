@@ -1,29 +1,4 @@
-<script type="text/javascript">
-<!--
-  function dispUchiwake(){
-   var list = document.getElementsByName('uchiwake');
-    for(i=0;i<list.length;i++){
-      if(list[i].style.display=='none'){
-        list[i].style.display='';
-      }else{
-        list[i].style.display='none';
-      }
-    }
-  }
 
-  $(document).ready(function() {
-      $('form input.help, form textarea.help').formtips({
-          tippedClass: 'tipped'
-      });
-  });
-// -->
-</script>
-
-<style type="text/css" media="screen">
-.tipped {
-    color: #BBB;
-}
-</style>
 <div style="background-color:#ece" width="100%">
 <h3>参加者一覧</h3>
 
@@ -91,3 +66,31 @@ John")%><br />
   <% end %>
 </p>
 </div>
+
+
+<script type="text/javascript">
+<!--
+  function dispUchiwake(){
+   var list = document.getElementsByName('uchiwake');
+    for(i=0;i<list.length;i++){
+      if(list[i].style.display=='none'){
+        list[i].style.display='';
+      }else{
+        list[i].style.display='none';
+      }
+    }
+  }
+
+  $(document).ready(function() {
+      $('form input.help, form textarea.help').formtips({
+          tippedClass: 'tipped'
+      });
+  });
+// -->
+</script>
+
+<style type="text/css" media="screen">
+.tipped {
+    color: #BBB;
+}
+</style>
