@@ -74,8 +74,8 @@ class PaticipantsController < ApplicationController
   # POST /
   def create_plural_with_name
     event=Event.find(params[:event_id])
-    names=params[:names].split("\r\n")
-    names.each do |name_str|
+    names_str=params[:paticipants_names].split("\r\n")
+    names_str.each do |name_str|
       if(!name_str.blank?)
         Paticipant.new(event_id: params[:event_id], name: name_str).save
       end

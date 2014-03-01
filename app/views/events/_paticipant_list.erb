@@ -1,23 +1,31 @@
-<div style="background-color:#ece" width="100%">
-<h3>参加者一覧</h3>
-
 <script type="text/javascript">
 <!--
-function testFunc(){
- var list = document.getElementsByName('uchiwake');
-  
-  for(i=0;i<list.length;i++){
-    if(list[i].style.display=='none'){
-      list[i].style.display='';
-    }else{
-      list[i].style.display='none';
+  function dispUchiwake(){
+   var list = document.getElementsByName('uchiwake');
+    for(i=0;i<list.length;i++){
+      if(list[i].style.display=='none'){
+        list[i].style.display='';
+      }else{
+        list[i].style.display='none';
+      }
     }
   }
-}
+
+  $(document).ready(function() {
+      $('form input.help, form textarea.help').formtips({
+          tippedClass: 'tipped'
+      });
+  });
 // -->
 </script>
 
-
+<style type="text/css" media="screen">
+.tipped {
+    color: #BBB;
+}
+</style>
+<div style="background-color:#ece" width="100%">
+<h3>参加者一覧</h3>
 
 <table border="0"  cellpadding="2px">
   <tr align="left">
@@ -31,7 +39,6 @@ function testFunc(){
     <th></th>
     <th></th>
   </tr>
-
 <% paticipants.each_with_index do |paticipant,i| %>
   <tr>
     <td><%= i+1 %></td>
@@ -40,9 +47,7 @@ function testFunc(){
     <td align="right">
         <%= number_with_delimiter(event.sum_payment_of_paticipant(paticipant.id)) %>
     </td>
-
-     <td style="font-size:60%;display:none;" name="uchiwake">(
-      <% event.payments.each_with_index do |payment,j| %>      
+    <td style="font-size:60%;display:none;" name="uchiwake">(<% event.payments.each_with_index do |payment,j| %>      
       <%= "+" if j != 0 %>
       <%= payment.payment_of_paticipant(paticipant.id).to_i  %>
       <% end %>)
@@ -58,20 +63,18 @@ function testFunc(){
       0
       <% end %>
     </td>
-   
     <td><%= link_to '編集', edit_paticipant_path(paticipant) %></td>
     <td><%= link_to '削除', paticipant, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-
   </tr>
 <% end %>
 </table>
-<input type="button" value="内訳表示" onclick="testFunc();" />
+<input type="button" value="内訳表示" onclick="dispUchiwake();" />
 <br /><br />
 <h3>参加者を追加</h3>
 <p>
   <%= form_tag(create_plural_paticipants_path) do%>
   人数を指定して追加<br />
-  <%= text_field_tag(:num,3,:size=>'3') %>人
+  <%= text_field_tag(:num,"",:size=>'3', class: "help", title: "3",style: "ime-mode: inactive;") %>人
   <%= submit_tag("追加") %>
   <%= hidden_field_tag(:event_id,event.id) %>
   <%= hidden_field_tag(:event_str_id,event.str_id) %>
@@ -80,7 +83,8 @@ function testFunc(){
 <p>
   <%= form_tag(create_plural_paticipants_with_name_path) do%>
   名前を記入して追加<br />
-  <%= text_area_tag(:names, "山田 太郎\nJohn", cols: 16,rows: 4)%><br />
+  <%= text_area_tag(:paticipants_names, "", cols: 16,rows: 4, class: "help",style: "ime-mode: active;", title: "山田 太郎 
+John")%><br />
   <%= submit_tag("追加") %>
   <%= hidden_field_tag(:event_id,event.id) %>
   <%= hidden_field_tag(:event_str_id,event.str_id) %>
