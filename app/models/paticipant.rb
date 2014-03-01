@@ -13,11 +13,17 @@ class Paticipant < ActiveRecord::Base
   end
 
   def check_payment_exemption?(payment_id)
-    @exemption = Exemption.find(:first,:conditions =>["paticipant_id=? and payment_id=?",self.id,payment_id])
-    if @exemption ==nil then
-      return true
-    else
+    
+    flg = false
+    self.exemptions.each do |e|
+      flg = true if e.payment_id == payment_id 
+    end
+
+
+    if flg then
       return false
+    else
+      return true
     end 
   end
 

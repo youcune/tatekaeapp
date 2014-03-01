@@ -14,7 +14,7 @@ class PaymentsController < ApplicationController
   # GET /payments/1
   # GET /payments/1.json
   def show
-    @payment = Payment.find(params[:id])
+    @payment = Payment.find(params[:id]).includes(:exemption)
     @paticipants = Paticipant.find_all_by_event_id(@payment.event_id)
 
     respond_to do |format|
@@ -36,8 +36,8 @@ class PaymentsController < ApplicationController
 
   # GET /payments/1/edit
   def edit
-    @payment = Payment.find(params[:id])
-    @paticipants = Paticipant.find_all_by_event_id(@payment.event_id)
+    @payment = Payment.find(params[:id],include: :exemptions)
+    @paticipants = Paticipant.find_all_by_event_id(@payment.event_id,include: :exemptions)
   end
 
   # POST /payments
