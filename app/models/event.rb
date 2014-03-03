@@ -1,7 +1,10 @@
+# encoding: utf-8
 class Event < ActiveRecord::Base
   attr_accessible :description, :name, :str_id
   has_many :payments
   has_many :paticipants
+  validates :name, presence: {message: "イベント名を入力してください"}
+  
 
   def payments_sum
   	self.payments.sum(:price).to_i

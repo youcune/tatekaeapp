@@ -2,10 +2,6 @@ Tatekaeapp::Application.routes.draw do
 
   #get "admin/events_index"
   match 'admin/events' => 'admin#events_index' , via: :get
-  match 'paticipants/create_plural/' => 'paticipants#create_plural', 
-          as: 'create_plural_paticipants', via: :post
-  match 'paticipants/create_plural_with_name/' => 'paticipants#create_plural_with_name' ,
-          as: 'create_plural_paticipants_with_name', via: :post
   
   #match 'events/:str_id/edit' => 'events#edit',  as: 'edit_event',:via => :get
   #match 'events' => 'events#index',  as: 'events',:via => :get
@@ -14,6 +10,10 @@ Tatekaeapp::Application.routes.draw do
   resources :payments
   resources :paticipants
   resources :events
+  match 'paticipants/create_plural/' => 'paticipants#create_plural', 
+          as: 'create_plural_paticipants', via: :post
+  match 'paticipants/create_plural_with_name/' => 'paticipants#create_plural_with_name' ,
+          as: 'create_plural_paticipants_with_name', via: :post
 
 
   # The priority is based upon order of creation:

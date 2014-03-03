@@ -1,15 +1,25 @@
+# encoding: utf-8
 class Payment < ActiveRecord::Base
   attr_accessible :event_id, :name, :paticipant_id, :price
   belongs_to :event 
   belongs_to :paticipant
   has_many :exemptions
 
+  validates :name, presence: {message: "支払項目名を入力してください"}
+  validates :price, presence: {message: "金額を入力してください"}, 
+                    numericality: {:only_integer => true, message: "金額は整数で入力してください"}
+  
+
   def payer_num
   	self.event.paticipants.length - self.exemptions.length
   end
 
   def price_per_paticipant
-  	self.price / payer_num
+    begin
+  	 self.price / payer_num
+    rescue
+      0
+    end
   end
 
   def payment_of_paticipant(paticipant_id)

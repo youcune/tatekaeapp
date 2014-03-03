@@ -41,7 +41,7 @@ class PaticipantsController < ApplicationController
 
   # GET /paticipants/1/edit
   def edit
-    @paticipant = Paticipant.find(params[:id], include: :exemption)
+    @paticipant = Paticipant.find(params[:id])
   end
 
   # POST /paticipants
