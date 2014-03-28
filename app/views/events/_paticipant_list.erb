@@ -17,7 +17,7 @@
 <% paticipants.each_with_index do |paticipant,i| %>
   <tr>
     <td><%= i+1 %></td>
-    <td><%= paticipant.name %></td>
+    <td><%= link_to "#{paticipant.name}", edit_paticipant_path(paticipant) %></td>
     <td align="right"><%= number_with_delimiter(paticipant.payments_price_sum) %></td>
     <td align="right">
         <%= number_with_delimiter(event.sum_payment_of_paticipant(paticipant.id)) %>
@@ -37,10 +37,9 @@
       <% else %>
       0
       <% end %>
-    </td>
-    <td><%= link_to '編集', edit_paticipant_path(paticipant) %></td>
-    <td><%= link_to '削除', paticipant, method: :delete, data: { confirm: 'Are you sure?' } %></td>
     <td><input type="checkbox" /></td>
+    </td>
+    <td><%= link_to '×', paticipant, method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>
 <% end %>
 </table>
