@@ -115,4 +115,10 @@ class PaymentsController < ApplicationController
 
     redirect_to :controller => 'events',:action =>'show',:id=>@payment.event.str_id, notice: 'Payment was successfully deleted.'
   end
+
+  private
+  def calc_exemption
+    
+  end
 end
+
