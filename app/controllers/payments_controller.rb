@@ -37,6 +37,7 @@ class PaymentsController < ApplicationController
   # GET /payments/1/edit
   def edit
     @payment = Payment.find(params[:id],include: :exemptions)
+    @payment.price = @payment.price.to_i
     @paticipants = Paticipant.find_all_by_event_id(@payment.event_id,include: :exemptions)
   end
 
