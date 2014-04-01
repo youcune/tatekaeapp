@@ -15,9 +15,9 @@ class Payment < ActiveRecord::Base
   end
 
   def price_per_paticipant
-    begin
+    if payer_num != 0
   	 self.price / payer_num
-    rescue
+    else
       0
     end
   end

@@ -109,8 +109,8 @@ class PaymentsController < ApplicationController
   def destroy
     @payment = Payment.find(params[:id])
     @payment.destroy
-    flash[:notice] = "Payment was successfully deleted."
-    redirect_to :controller => 'events',:action =>'show',:id=>@payment.event.str_id
+    
+    redirect_to :controller => 'events',:action =>'show',:id=>@payment.event.str_id, notice: 'Payment was successfully deleted.'
   end
 
   private
