@@ -96,15 +96,11 @@ class PaymentsController < ApplicationController
     end
 
 
-    respond_to do |format|
-      if @payment.update_attributes(params[:payment])
-        #format.html { redirect_to @payment, notice: 'Payment was successfully updated.' }
-        format.html { redirect_to :controller => 'events',:action =>'show',:id=>@payment.event.str_id, notice: 'Payment was successfully updated.'}
-        format.json { head :no_content }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @payment.errors, status: :unprocessable_entity }
-      end
+    if @payment.update_attributes(params[:payment])
+      flash[:notice] = "Payment was successfully updated."
+      redirect_to :controller => 'events',:action =>'show',:id=>@payment.event.str_id
+    else
+      render action: "edit" 
     end
   end
 
@@ -113,8 +109,8 @@ class PaymentsController < ApplicationController
   def destroy
     @payment = Payment.find(params[:id])
     @payment.destroy
-
-    redirect_to :controller => 'events',:action =>'show',:id=>@payment.event.str_id, notice: 'Payment was successfully deleted.'
+    flash[:notice] = "Payment was successfully deleted."
+    redirect_to :controller => 'events',:action =>'show',:id=>@payment.event.str_id
   end
 
   private
