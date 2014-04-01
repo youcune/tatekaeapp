@@ -28,7 +28,7 @@ class EventsController < ApplicationController
   def create
     @event = Event.new(params[:event])
     str_array = ('a'..'z').to_a + ('A'..'Z').to_a + ('0'..'9').to_a
-    random_token = ( Array.new(32){ str_array[rand(str_array.size)] } ).join
+    random_token = ( Array.new(16){ str_array[rand(str_array.size)] } ).join
     @event.str_id = random_token
     if @event.save
       redirect_to event_path(@event.str_id), notice: 'Event was successfully created.' 
