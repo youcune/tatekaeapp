@@ -11,7 +11,11 @@ class Event < ActiveRecord::Base
   end
 
   def payments_average
-  	(payments_sum / self.paticipants.count).to_i
+    if self.paticipants.count == 0
+      0
+    else
+  	 (payments_sum / self.paticipants.count).to_i
+    end
   end
 
   def sum_payment_of_paticipant(paticipant_id)
