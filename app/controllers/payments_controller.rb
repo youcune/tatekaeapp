@@ -68,16 +68,25 @@ class PaymentsController < ApplicationController
     #paitcipantごとに処理を行う
     @paticipants.each do |paticipant|
       #処理用に指定payment、paticipantごとのexemptionを検索する
-      @exemption = Exemption.find(:first,:conditions =>["paticipant_id=? and payment_id=?",paticipant.id,@payment.id])
-      if params[:check_payment][:"#{paticipant.id}"] == nil
+      @exemption = Exemption.find(:first,
+          :conditions =>["paticipant_id=? and payment_id=?",paticipant.id,@payment.id])
+
+      #exemptionチェックが1個も無いとparams[:check_payment] がnilになり
+      #params[:check_payment][:"#{paticipant.id}"]が取得できないので、その場合はｎｉｌを設定する
+      if params[:check_payment] == nil
+        param_check =nil
+      else
+        param_check = params[:check_payment][:"#{paticipant.id}"]
+      end
+
+      if param_check == nil
         #チェックされていない場合(=支払を行なわない・免除(exemption)がある人)：データがある状態が正しい
         #既存のexemptionデータがない場合、データを登録する
         if @exemption ==nil 
           @exemption  = Exemption.new(paticipant_id:paticipant.id,payment_id:@payment.id)
           @exemption.save
         end  
-        #既存のexemptionデータがあるい場合、データを登録する
-            
+        #既存のexemptionデータがある場合、何も行わない
       else
         #チェックされている(支払を行う人)場合：データがない状態が正しい
         #既存のexemptionデータがある場合、exemptionを削除する
@@ -87,14 +96,6 @@ class PaymentsController < ApplicationController
         #既存のexemptionデータがない場合、何も行わない
       end
     end
-
-    
-    if @check_payments != nil
-      @check_payments.each do | check_payment_id |
-       
-      end 
-    end
-
 
     if @payment.update_attributes(params[:payment])
       flash[:notice] = "Payment was successfully updated."
