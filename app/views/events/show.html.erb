@@ -14,12 +14,12 @@
 
 <p>
 	<%= render partial:"payment_list",locals:{
-		payments: @event.payments,
+		payments: @event.payments.order("created_at"),
 		event: @event} %>
 </p>
 <p>
 	<%= render partial:"paticipant_list",locals:{
-		paticipants: @event.paticipants,
+		paticipants: @event.paticipants.order("created_at"),
 		event: @event} %>
 </p>
 <p>
