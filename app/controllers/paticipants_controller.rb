@@ -96,8 +96,12 @@ class PaticipantsController < ApplicationController
 
   # DELETE /paticipants/1
   def destroy
-    @paticipant = Paticipant.find(params[:id])
-    @paticipant.destroy
-    redirect_to :controller => 'events',:action =>'show',:id=>@paticipant.event.str_id, notice: 'Paticipant was successfully deleted.'
+    paticipant = Paticipant.find(params[:id])
+    paticipant.exemptions.each do |exemption|
+      exemption.destroy
+    end
+    paticipant.destroy
+    flash[:notice] = "Paticipant was successfully deleted."
+    redirect_to :controller => 'events',:action =>'show',:id=>paticipant.event.str_id
   end
 end
