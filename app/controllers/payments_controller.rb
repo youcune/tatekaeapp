@@ -1,18 +1,11 @@
 # coding: utf-8
 class PaymentsController < ApplicationController
   # GET /payments
-  # GET /payments.json
   def index
     @payments = Payment.all
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @payments }
-    end
   end
 
   # GET /payments/1
-  # GET /payments/1.json
   def show
     @payment = Payment.find(params[:id]).includes(:exemption)
     @paticipants = Paticipant.find_all_by_event_id(@payment.event_id)
@@ -24,14 +17,11 @@ class PaymentsController < ApplicationController
   end
 
   # GET /payments/new
-  # GET /payments/new.json
   def new
+    event = Event.find(params[:event_id])
     @payment = Payment.new
-    @payment.event_id = params[:event_id]
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @payment }
-    end
+    @payment.event_id = event.id
+    @paticipants = event.paticipants
   end
 
   # GET /payments/1/edit
@@ -42,34 +32,26 @@ class PaymentsController < ApplicationController
   end
 
   # POST /payments
-  # POST /payments.json
   def create
-    @payment = Payment.new(params[:payment])
-
-    respond_to do |format|
-      if @payment.save
-        format.html { redirect_to :controller => 'events',:action =>'show',:id=>@payment.event.str_id, notice: 'Payment was successfully added.' }
-        format.json { render json: @payment, status: :created, location: @payment }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @payment.errors, status: :unprocessable_entity }
-      end
+    payment = Payment.new(params[:payment])
+    if payment.save
+      redirect_to :controller => 'events',:action =>'show',:id=>payment.event.str_id, notice: 'Payment was successfully added.' 
+    else
+      render action: "new"       
     end
   end
 
   # PUT /payments/1
-  # PUT /payments/1.json
   def update
     #paymentを更新
-    @payment = Payment.find(params[:id])
-
-    @paticipants = @payment.event.paticipants
+    payment = Payment.find(params[:id])
+    paticipants = payment.event.paticipants
 
     #paitcipantごとに処理を行う
-    @paticipants.each do |paticipant|
+    paticipants.each do |paticipant|
       #処理用に指定payment、paticipantごとのexemptionを検索する
-      @exemption = Exemption.find(:first,
-          :conditions =>["paticipant_id=? and payment_id=?",paticipant.id,@payment.id])
+      exemption = Exemption.find(:first,
+          :conditions =>["paticipant_id=? and payment_id=?",paticipant.id,payment.id])
 
       #exemptionチェックが1個も無いとparams[:check_payment] がnilになり
       #params[:check_payment][:"#{paticipant.id}"]が取得できないので、その場合はｎｉｌを設定する
@@ -82,41 +64,35 @@ class PaymentsController < ApplicationController
       if param_check == nil
         #チェックされていない場合(=支払を行なわない・免除(exemption)がある人)：データがある状態が正しい
         #既存のexemptionデータがない場合、データを登録する
-        if @exemption ==nil 
-          @exemption  = Exemption.new(paticipant_id:paticipant.id,payment_id:@payment.id)
-          @exemption.save
+        if exemption ==nil 
+          exemption  = Exemption.new(paticipant_id:paticipant.id,payment_id:payment.id)
+          exemption.save
         end  
         #既存のexemptionデータがある場合、何も行わない
       else
         #チェックされている(支払を行う人)場合：データがない状態が正しい
         #既存のexemptionデータがある場合、exemptionを削除する
-        if @exemption !=nil 
-          @exemption.destroy
+        if exemption !=nil 
+          exemption.destroy
         end  
         #既存のexemptionデータがない場合、何も行わない
       end
     end
 
-    if @payment.update_attributes(params[:payment])
+    if payment.update_attributes(params[:payment])
       flash[:notice] = "Payment was successfully updated."
-      redirect_to :controller => 'events',:action =>'show',:id=>@payment.event.str_id
+      redirect_to :controller => 'events',:action =>'show',:id=>payment.event.str_id
     else
       render action: "edit" 
     end
   end
 
   # DELETE /payments/1
-  # DELETE /payments/1.json
   def destroy
-    @payment = Payment.find(params[:id])
-    @payment.destroy
-    
-    redirect_to :controller => 'events',:action =>'show',:id=>@payment.event.str_id, notice: 'Payment was successfully deleted.'
+    payment = Payment.find(params[:id])
+    payment.destroy
+    redirect_to :controller => 'events',:action =>'show',:id=>payment.event.str_id, notice: 'Payment was successfully deleted.'
   end
 
-  private
-  def calc_exemption
-    
-  end
 end
 
