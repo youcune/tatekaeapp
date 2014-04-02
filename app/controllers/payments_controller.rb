@@ -41,10 +41,10 @@ class PaymentsController < ApplicationController
   def update
     #paymentを更新
     @payment = Payment.find(params[:id])
-    paticipants = @payment.event.paticipants
+    @paticipants = @payment.event.paticipants
 
     #paitcipantごとに処理を行う
-    paticipants.each do |paticipant|
+    @paticipants.each do |paticipant|
       #処理用に指定payment、paticipantごとのexemptionを検索する
       exemption = Exemption.find(:first,
           :conditions =>["paticipant_id=? and payment_id=?",paticipant.id,@payment.id])
