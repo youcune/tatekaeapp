@@ -9,11 +9,6 @@ class PaymentsController < ApplicationController
   def show
     @payment = Payment.find(params[:id]).includes(:exemption)
     @paticipants = Paticipant.find_all_by_event_id(@payment.event_id)
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @payment }
-    end
   end
 
   # GET /payments/new
@@ -33,9 +28,10 @@ class PaymentsController < ApplicationController
 
   # POST /payments
   def create
-    payment = Payment.new(params[:payment])
-    if payment.save
-      redirect_to :controller => 'events',:action =>'show',:id=>payment.event.str_id, notice: 'Payment was successfully added.' 
+    @payment = Payment.new(params[:payment])
+    if @payment.save
+      flash[:notice] = "支払項目が登録されました。"
+      redirect_to :controller => 'events',:action =>'show',:id=>@payment.event.str_id
     else
       render action: "new"       
     end
@@ -44,14 +40,14 @@ class PaymentsController < ApplicationController
   # PUT /payments/1
   def update
     #paymentを更新
-    payment = Payment.find(params[:id])
-    paticipants = payment.event.paticipants
+    @payment = Payment.find(params[:id])
+    paticipants = @payment.event.paticipants
 
     #paitcipantごとに処理を行う
     paticipants.each do |paticipant|
       #処理用に指定payment、paticipantごとのexemptionを検索する
       exemption = Exemption.find(:first,
-          :conditions =>["paticipant_id=? and payment_id=?",paticipant.id,payment.id])
+          :conditions =>["paticipant_id=? and payment_id=?",paticipant.id,@payment.id])
 
       #exemptionチェックが1個も無いとparams[:check_payment] がnilになり
       #params[:check_payment][:"#{paticipant.id}"]が取得できないので、その場合はｎｉｌを設定する
@@ -65,7 +61,7 @@ class PaymentsController < ApplicationController
         #チェックされていない場合(=支払を行なわない・免除(exemption)がある人)：データがある状態が正しい
         #既存のexemptionデータがない場合、データを登録する
         if exemption ==nil 
-          exemption  = Exemption.new(paticipant_id:paticipant.id,payment_id:payment.id)
+          exemption  = Exemption.new(paticipant_id:paticipant.id,payment_id:@payment.id)
           exemption.save
         end  
         #既存のexemptionデータがある場合、何も行わない
@@ -79,9 +75,9 @@ class PaymentsController < ApplicationController
       end
     end
 
-    if payment.update_attributes(params[:payment])
-      flash[:notice] = "Payment was successfully updated."
-      redirect_to :controller => 'events',:action =>'show',:id=>payment.event.str_id
+    if @payment.update_attributes(params[:payment])
+      flash[:notice] = "支払項目が更新されました。"
+      redirect_to :controller => 'events',:action =>'show',:id=>@payment.event.str_id
     else
       render action: "edit" 
     end
@@ -91,7 +87,8 @@ class PaymentsController < ApplicationController
   def destroy
     payment = Payment.find(params[:id])
     payment.destroy
-    redirect_to :controller => 'events',:action =>'show',:id=>payment.event.str_id, notice: 'Payment was successfully deleted.'
+    flash[:notice] = "支払項目が削除されました。"
+    redirect_to :controller => 'events',:action =>'show',:id=>payment.event.str_id
   end
 
 end

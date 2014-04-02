@@ -24,11 +24,10 @@ class PaticipantsController < ApplicationController
   # POST /paticipants
   # POST /paticipants.json
   def create
-    paticipant = Paticipant.new(params[:paticipant])
-    if paticipant.save
-      #format.html { redirect_to @paticipant, notice: 'Paticipant was successfully created.' }
-      redirect_to :controller => 'events',:action =>'show',
-        :id=>paticipant.event.id, notice: 'Paticipant was successfully added.'
+    @paticipant = Paticipant.new(params[:paticipant])
+    if @paticipant.save
+      flash[:notice] = "参加者が登録されました。"
+      redirect_to :controller => 'events',:action =>'show',:id=>@paticipant.event.id
     else
       render action: "new"
       
@@ -43,7 +42,7 @@ class PaticipantsController < ApplicationController
       paticipant.save
     end
     redirect_to event_path(params[:event_str_id]), 
-      notice: "#{params[:num]} Paticipants were successfully updated."
+      notice: "参加者が登録されました。"
   end
 
   # POST /
@@ -56,16 +55,17 @@ class PaticipantsController < ApplicationController
       end
     end
     redirect_to event_path(params[:event_str_id]), 
-      notice: "#{params[:num]} Paticipants were successfully updated."
+      notice: "参加者が登録されました。"
   end
 
 
   # PUT /paticipants/1
   def update
-    paticipant = Paticipant.find(params[:id])
-    if paticipant.update_attributes(params[:paticipant])
+    @paticipant = Paticipant.find(params[:id])
+    if @paticipant.update_attributes(params[:paticipant])
+      flash[:notice] = "参加者が更新されました。"
       redirect_to :controller => 'events',:action =>'show',
-        :id=>paticipant.event.str_id, notice: 'Paticipant was successfully updated.'
+        :id=>@paticipant.event.str_id
     else
       render action: "edit" 
     end
@@ -78,7 +78,7 @@ class PaticipantsController < ApplicationController
       exemption.destroy
     end
     paticipant.destroy
-    flash[:notice] = "Paticipant was successfully deleted."
+    flash[:notice] = "参加者が削除されました。"
     redirect_to :controller => 'events',:action =>'show',:id=>paticipant.event.str_id
   end
 end
