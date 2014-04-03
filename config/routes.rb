@@ -1,6 +1,7 @@
 Tatekaeapp::Application.routes.draw do
 
   #get "admin/events_index"
+  root :to => 'events#index', via: :get
   match 'admin/events' => 'admin#events_index' , via: :get
   match 'events/:str_id/paticipants' => 'paticipants#show_to_delete' , via: :get
   match 'events/:str_id/paticipants' => 'paticipants#delete_multiple' , via: :post
