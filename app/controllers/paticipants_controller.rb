@@ -81,4 +81,24 @@ class PaticipantsController < ApplicationController
     flash[:notice] = "参加者が削除されました。"
     redirect_to :controller => 'events',:action =>'show',:id=>paticipant.event.str_id
   end
+  # GET /events/1/paticipants
+  def show_to_delete
+    event=Event.find_by_str_id(params[:str_id])
+    @paticipants = event.paticipants
+    @event_str_id=event.str_id
+  end
+
+  # POST /events/1/paticipnats
+  def delete_multiple
+    check_values = params[:delete_check]
+    event_str_id = params[:event_str_id]
+    p event_str_id
+    if check_values != nil 
+      check_values.each do |check_value|
+        Paticipant.find(check_value[0]).destroy
+      end
+      flash[:notice] = "参加者が削除されました。"
+    end
+    redirect_to :controller => 'events',:action =>'show', id:event_str_id
+  end
 end

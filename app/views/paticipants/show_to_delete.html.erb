@@ -1,0 +1,28 @@
+<div style="background-color:#ece">
+
+<h1>参加者の削除</h1>
+
+<%= form_tag do  %>
+<%= hidden_field_tag :event_str_id, @event_str_id %>
+	<table border="0"  cellpadding="2px">
+	  <tr align="left">
+	    <th>No.</th>
+	    <th>名前</th>
+	    <th>削除チェック</th>
+	  </tr>
+	  <% @paticipants.each_with_index do |paticipant,i| %>
+	  <tr>
+	    <td><%= i+1 %></td>
+	    <td><%= link_to "#{paticipant.name}", edit_paticipant_path(paticipant) %></td>
+	    <td align="center"><%= check_box_tag "delete_check[#{paticipant.id}]" %></td>
+	  </tr>
+	  <% end %>
+	</table>
+	<p>
+		<%= submit_tag "チェックをつけた参加者を削除" %>
+	</p>
+<% end %>
+<p>
+	イベントに戻る
+</p>
+</div>

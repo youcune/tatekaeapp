@@ -44,7 +44,6 @@ class PaymentsController < ApplicationController
     @paticipants = @payment.event.paticipants
 
     ActiveRecord::Base.transaction do
-
       #paitcipantごとに処理を行う
         @paticipants.each do |paticipant|
         #処理用に指定payment、paticipantごとのexemptionを検索する
