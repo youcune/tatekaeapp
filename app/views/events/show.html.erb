@@ -1,16 +1,15 @@
 <div style="background-color:#ffd" width="100%">
 <div style="background-color:#ffd" width="100%">
-<p id="notice"><%= flash[:notice] %></p>
 
-<p>
-  <b>Name:</b>
-  <%= @event.name %>
-</p>
 
+<h2><%= @event.name %></h2>
 <p>
-  <b>Description:</b>
+  <b>イベント説明:</b><%= link_to '編集', edit_event_path(@event.str_id) %><br />
   <%= @event.description %>
+	
 </p>
+	
+<p id="notice"><%= flash[:notice] %></p>
 
 <p>
 	<%= render partial:"payment_list",locals:{
@@ -33,7 +32,7 @@
 	</span>
 </p>
 <p>
-	<%= link_to 'イベントを編集', edit_event_path(@event.str_id) %><br />
+	
 	<%#  link_to '<- イベント一覧', admin_events_path %> 
 </p>
 
