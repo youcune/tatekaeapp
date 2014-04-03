@@ -1,11 +1,16 @@
 Tatekaeapp::Application.routes.draw do
 
+  get "sessions/create"
+
+  get "sessions/destroy"
+
   #get "admin/events_index"
   root :to => 'events#index', via: :get
   match 'admin/events' => 'admin#events_index' , via: :get
   match 'events/:str_id/paticipants' => 'paticipants#show_to_delete' , via: :get
   match 'events/:str_id/paticipants' => 'paticipants#delete_multiple' , via: :post
-  
+  match "/auth/:provider/callback" => "sessions#create"
+  match "/signout" => "sessions#destroy"
   #match 'events/:str_id/edit' => 'events#edit',  as: 'edit_event',:via => :get
   #match 'events' => 'events#index',  as: 'events',:via => :get
   #match 'events' => 'events#create',  :via => :post

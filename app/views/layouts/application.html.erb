@@ -10,6 +10,16 @@
 <body>
 
 <%= yield %>
-
+<ul>
+    <% if current_user  %>
+	    <% if notice %>
+	      <li><%= notice %></li>
+	    <% end %>
+	    <li>ようこそ <%= current_user.name %>さん</li>
+	    <li><%= link_to "ログアウト", "/signout" %></li>
+	  <% else %>
+	    <li><%= link_to "Twitterでログイン", "/auth/twitter" %></li>
+  <% end %>
+</ul>
 </body>
 </html>
