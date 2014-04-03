@@ -24,8 +24,13 @@
 </p>
 <p>
 	このイベントのurl<br />
-	<input type="text" value="<%= @url %>" onTouchstart="this.select()"  onfocus="this.select()"style="width: 60%; font-size:0.8em" />
-
+	<input type="text" value="<%= @url %>" onTouchstart="this.select()"  onfocus="this.select()"style="width: 60%; font-size:0.8em" /><br />
+	<span>
+		<script type="text/javascript" src="//media.line.me/js/line-button.js?v=20140127" ></script>
+		<script type="text/javascript">
+		new media_line_me.LineButton({"pc":false,"lang":"ja","type":"a","text":"","withUrl":true});
+		</script>
+	</span>
 </p>
 <p>
 	<%= link_to 'イベントを編集', edit_event_path(@event.str_id) %><br />
