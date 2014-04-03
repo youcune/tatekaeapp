@@ -9,6 +9,7 @@ class EventsController < ApplicationController
   # GET /events/1
   def show
     @event = Event.find_by_str_id(params[:id],:include => {:payments => :exemptions})
+    @url = request.url                  
   end
 
 

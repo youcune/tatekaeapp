@@ -23,7 +23,12 @@
 		event: @event} %>
 </p>
 <p>
+	このイベントのurl<br />
+	<input type="text" value="<%= @url %>" onclick="this.select()" style="width: 60%; font-size:0.8em" />
+
+</p>
+<p>
 	<%= link_to 'イベントを編集', edit_event_path(@event.str_id) %><br />
-	<%= link_to '<- イベント一覧', admin_events_path %>
+	<%#  link_to '<- イベント一覧', admin_events_path %> 
 </p>
 
