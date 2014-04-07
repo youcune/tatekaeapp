@@ -1,7 +1,14 @@
 Tatekaeapp::Application.routes.draw do
 
 
+
   root :to => 'events#index', via: :get
+  
+  match "message/new" => 'message#new', via: :get
+  match "message/new" => 'message#send_message', via: :post
+
+
+
   match 'admin/events' => 'admin#events_index' , via: :get
   match 'events/:str_id/paticipants' => 'paticipants#show_to_delete' , via: :get
   match 'events/:str_id/paticipants' => 'paticipants#delete_multiple' , via: :post

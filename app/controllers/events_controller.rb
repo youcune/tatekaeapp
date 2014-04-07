@@ -44,6 +44,10 @@ class EventsController < ApplicationController
     @event = Event.find(params[:id])
 
     if @event.update_attributes(params[:event])
+      begin 
+        Mailer.welcome_email(@event).deliver
+      rescue
+      end
       flash[:notice] = "イベントが更新されました。"
       redirect_to event_path(@event.str_id)
     else
