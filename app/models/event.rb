@@ -3,6 +3,7 @@ class Event < ActiveRecord::Base
   attr_accessible :description, :name, :str_id
   has_many :payments
   has_many :paticipants
+  has_many :forms
   validates :name, presence: {message: "イベント名を入力してください"}
   
 

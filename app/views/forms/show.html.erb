@@ -1,0 +1,43 @@
+<style type="text/css">
+h1.ss-form-title {
+  background-color: #5e5e5e;
+  padding: 15px;
+  margin: -15px -15px 15px;
+  color: #ebebeb;
+  text-align: left;
+}
+div.ss-form-container {
+  padding: 15px;
+  background-color: #f7f7f7;
+  border-color: #4a4a4a;
+  border-style: solid;
+  border-width: 1px;
+}
+span.input-value{
+	margin: 10px;
+}
+
+</style>
+<h1 class="ss-form-title"><%= @event_name %> 申込みフォーム</h1>
+<p id="notice"><%= flash[:notice] %></p>
+
+<div class="ss-form-container">
+<p>
+  <b>お名前</b><br />
+  <span class="input-value"><%= @form.name %></span>
+</p>
+
+<p>
+  <b>メールアドレス</b><br />
+  <span class="input-value"><%= @form.email %></span>
+</p>
+
+</div>
+
+
+<p>
+<%= link_to '回答を編集する', edit_form_path(@form.str_id) %>
+</p>
+<p>
+<%= link_to '応募者一覧を表示する', event_applicants_path(@form.event.str_id) %>
+</p>

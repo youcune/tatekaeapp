@@ -1,0 +1,32 @@
+<h1><%= @event.name %> 申込者管理</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Email</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @forms.each do |form| %>
+  <tr>
+    <td><%= form.name %></td>
+    <td><%= form.email %></td>
+    <td><%= link_to 'Show', form_path(form_str_id: form.str_id) %></td>
+    <td><%= link_to 'Edit', edit_form_path(form_str_id: form.str_id) %></td>
+    <td><%= link_to 'Destroy', delete_form_path(form_str_id: form.str_id),method: :delete,
+         data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+
+<p>
+  <%= link_to '申込みフォームを表示', event_new_form_path(@event.str_id) %> <br />
+</p>
+<p>
+  <%= link_to '申込みフォームを編集', event_new_form_path(@event.str_id) %>
+</p>
+
+

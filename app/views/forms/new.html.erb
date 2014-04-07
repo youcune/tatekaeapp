@@ -1,0 +1,37 @@
+<style type="text/css">
+body.ss-base-body {
+  background-color: #ababab;
+  font-family: sans-serif,sans-serif;
+}
+div.ss-form-container {
+  padding: 15px;
+  background-color: #f7f7f7;
+  border-color: #4a4a4a;
+  border-style: solid;
+  border-width: 1px;
+}
+h1.ss-form-title {
+  background-color: #5e5e5e;
+  padding: 15px;
+  margin: -15px -15px 15px;
+  color: #ebebeb;
+  text-align: left;
+}
+div.errorbox-bad {
+  background-color: #e8dfdf;
+}
+h2.ss-section-title {
+  background-color: transparent;
+}
+div.ss-submit div.ss-form-entry {
+  background: none;
+  border: none;
+}
+</style>
+
+<h1 class="ss-form-title"><%= @event_name %> 申込みフォーム</h1>
+<div class="ss-form-container">
+<%= render 'form' %>
+</div>
+
+<%= link_to 'Back', forms_path %>

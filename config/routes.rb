@@ -1,10 +1,21 @@
 Tatekaeapp::Application.routes.draw do
 
-  #get "admin/events_index"
+
   root :to => 'events#index', via: :get
   match 'admin/events' => 'admin#events_index' , via: :get
   match 'events/:str_id/paticipants' => 'paticipants#show_to_delete' , via: :get
   match 'events/:str_id/paticipants' => 'paticipants#delete_multiple' , via: :post
+  match 'events/:str_id/paticipants' => 'paticipants#delete_multiple' , via: :post
+
+  match 'events/:event_str_id/applicants' => 'forms#index' , via: :get, as: 'event_applicants' 
+  match 'events/form/:form_str_id' => 'forms#show', via: :get, as: 'form'
+  match 'events/:event_str_id/form' => 'forms#new' , via: :get, as: 'event_new_form'
+  match 'events/:event_str_id/form' => 'forms#create', via: :post
+  match 'events/form/:form_str_id/edit' => 'forms#edit', via: :get, as: 'edit_form'
+  match 'events/form/:form_str_id/edit' => 'forms#update', via: :put
+  match 'events/form/:form_str_id/' => 'forms#destroy', via: :delete, as: 'delete_form'
+
+  resources :forms, except: ["show","edit","update","create","delete","new"]
   
   #match 'events/:str_id/edit' => 'events#edit',  as: 'edit_event',:via => :get
   #match 'events' => 'events#index',  as: 'events',:via => :get

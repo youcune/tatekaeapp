@@ -5,8 +5,8 @@
 <h2><%= @event.name %></h2>
 <p>
   <b>イベント説明:</b><%= link_to '編集', edit_event_path(@event.str_id) %><br />
-  <%= @event.description %>
-	
+  <%= @event.description %><br />
+	<%= link_to '申込者管理', event_applicants_path(@event.str_id) %>
 </p>
 	
 <p id="notice"><%= flash[:notice] %></p>

@@ -1,0 +1,33 @@
+<style type="text/css">
+span.required-mark {
+  color:red;
+  margin: 5px;
+}
+</style>
+<%= form_for(@form, url: {action: @action}) do |f| %>
+  <% if @form.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@form.errors.count, "error") %> prohibited this form from being saved:</h2>
+
+      <ul>
+      <% @form.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="field">
+    <b>お名前</b><span class="required-mark">*</span><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <b>メールアドレス</b><span class="required-mark">*</span><br />
+    <%= f.text_field :email %>
+  </div>
+  <div class="actions">
+    <%= hidden_field_tag :form_str_id, @form_str_id %>
+    <%= hidden_field_tag :event_str_id, @event_str_id %>
+    <%= hidden_field_tag :event_name, @event_name %>
+    <%= f.submit %>
+  </div>
+<% end %>
