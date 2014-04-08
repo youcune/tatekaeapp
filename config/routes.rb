@@ -4,9 +4,8 @@ Tatekaeapp::Application.routes.draw do
 
   root :to => 'events#index', via: :get
   
-  match "message/new" => 'message#new', via: :get
-  match "message/new" => 'message#send_message', via: :post
-
+  match "events/:event_str_id/message" => 'message#new', via: :get, as: 'event_message'
+  match "events/:event_str_id/message" => 'message#send_message', via: :post
 
 
   match 'admin/events' => 'admin#events_index' , via: :get

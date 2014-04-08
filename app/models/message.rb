@@ -4,7 +4,7 @@ class Message
   include ActiveModel::Conversion
   extend ActiveModel::Naming
   
-  attr_accessor :to, :cc, :bcc, :subject, :content
+  attr_accessor :to, :cc, :bcc, :subject, :content, :to_arr
   
   validates :to, 
     format: {with: /^[-a-z0-9_+\.]+\@([-a-z0-9]+\.)+[a-z0-9]{2,4}$/i ,
