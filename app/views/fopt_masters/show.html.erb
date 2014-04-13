@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Event:</b>
+  <%= @fopt_master.event_id %>
+</p>
+
+<p>
+  <b>Order:</b>
+  <%= @fopt_master.sort_order %>
+</p>
+
+<p>
+  <b>Name:</b>
+  <%= @fopt_master.name %>
+</p>
+
+<p>
+  <b>Value type:</b>
+  <%= @fopt_master.value_type %>
+</p>
+
+<p>
+  <b>Choices:</b>
+  <%= @fopt_master.choices %>
+</p>
+
+
+<%= link_to 'Edit', edit_fopt_master_path(@fopt_master) %> |
+<%= link_to 'Back', fopt_masters_path %>
