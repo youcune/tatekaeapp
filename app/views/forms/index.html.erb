@@ -7,6 +7,9 @@
     <th></th>
     <th></th>
     <th></th>
+    <% @fopt_masters.each do |mst| %>
+      <th><%= mst.name %></th>
+    <% end %>
   </tr>
 
 <% @forms.each do |form| %>
@@ -17,6 +20,11 @@
     <td><%= link_to 'Edit', edit_form_path(form_str_id: form.str_id) %></td>
     <td><%= link_to 'Destroy', delete_form_path(form_str_id: form.str_id),method: :delete,
          data: { confirm: 'Are you sure?' } %></td>
+    <% @fopt_masters.each do |mst| %>
+      <td>
+          <%= @fopt_infos["#{form.id}_#{mst.id}"] %>
+      </td>
+    <% end %>
   </tr>
 <% end %>
 </table>

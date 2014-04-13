@@ -1,10 +1,18 @@
 # encoding: utf-8
 class FormsController < ApplicationController
   # GET /forms
-  # GET /forms.json
   def index
-    @event = Event.find_by_str_id(params[:event_str_id])
+    @event = Event.find_by_str_id(params[:event_str_id],:include => {:forms => :fopt_infos})
     @forms = @event.forms
+    @fopt_masters = @event.fopt_masters
+    @fopt_infos  = Hash.new
+    @forms.each do |form|
+      form.fopt_infos.each do |info|
+        @fopt_infos["#{form.id}_#{info.fopt_master.id}"] = info.value
+      end
+    end
+    @fopt_infos
+    p @fopt_infos
   end
 
   # GET /events/form/:form_str_id
@@ -13,7 +21,6 @@ class FormsController < ApplicationController
     @event_name  = @form.event.name
   end
 
-
   # GET /events/:event_str_id/form
   def new
     event = Event.find_by_str_id(params[:event_str_id])
@@ -21,6 +28,7 @@ class FormsController < ApplicationController
     @event_str_id = event.str_id
     @event_name = event.name
     @action = "create"
+    @fopt_masters = event.fopt_masters
   end
 
 
@@ -28,14 +36,28 @@ class FormsController < ApplicationController
   def create
     @form = Form.new(params[:form])
     str_array = ('a'..'z').to_a + ('A'..'Z').to_a + ('0'..'9').to_a
-    random_token = ( Array.new(16){ str_array[rand(str_array.size)] } ).join
-    @form.str_id = random_token
-    @form.event_id = Event.find_by_str_id(params[:event_str_id]).id
-    p @form
+    form_str_id = ( Array.new(16){ str_array[rand(str_array.size)] } ).join
+    @form.str_id = form_str_id
+    event = Event.find_by_str_id(params[:event_str_id])
+    @form.event_id = event.id
+    
+    
 
     if @form.save
+        p "success★"
+        p @form
+
+        #fopt_infoを登録
+        event.fopt_masters.each do |mst|
+          fopt_info = FoptInfo.new
+          fopt_info.form_id = @form.id
+          fopt_info.fopt_master_id = mst.id
+          fopt_info.value = params["fopt#{mst.id}"]
+          fopt_info.save
+        end
+
         flash[:notice] = "申し込みを受け付けました。"
-        redirect_to action: "show", form_str_id: random_token
+        redirect_to action: "show", form_str_id: form_str_id
     else
       @event_str_id = params[:event_str_id]
       @event_name = params[:event_name]

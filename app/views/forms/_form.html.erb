@@ -7,8 +7,7 @@ span.required-mark {
 <%= form_for(@form, url: {action: @action}) do |f| %>
   <% if @form.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@form.errors.count, "error") %> prohibited this form from being saved:</h2>
-
+      <h2><%= pluralize(@form.errors.count, "error") %> prohibited this form from being saved:</h2>gann
       <ul>
       <% @form.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
@@ -24,6 +23,12 @@ span.required-mark {
     <b>メールアドレス</b><span class="required-mark">*</span><br />
     <%= f.text_field :email %>
   </div>
+  <% @fopt_masters.each do |mst| %>
+  <div class="field">
+    <b><%= mst.name %>(<%= mst.value_type %>)</b><br />
+    <%= text_field_tag "fopt#{mst.id}" %>
+  </div>
+  <% end %>
   <div class="actions">
     <%= hidden_field_tag :form_str_id, @form_str_id %>
     <%= hidden_field_tag :event_str_id, @event_str_id %>

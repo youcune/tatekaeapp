@@ -2,6 +2,9 @@ Tatekaeapp::Application.routes.draw do
 
 
 
+  resources :fopt_masters
+
+
   root :to => 'events#index', via: :get
   
   match "events/:event_str_id/message" => 'message#new', via: :get, as: 'event_message'

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140407010707) do
+ActiveRecord::Schema.define(:version => 20140413021610) do
 
   create_table "applicants", :force => true do |t|
     t.string   "name"
@@ -34,6 +34,24 @@ ActiveRecord::Schema.define(:version => 20140407010707) do
     t.integer  "payment_id"
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
+  end
+
+  create_table "fopt_infos", :force => true do |t|
+    t.integer  "form_id"
+    t.integer  "fopt_master_id"
+    t.string   "value"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
+
+  create_table "fopt_masters", :force => true do |t|
+    t.integer  "event_id"
+    t.integer  "sort_order"
+    t.string   "name"
+    t.string   "value_type"
+    t.string   "choices"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "forms", :force => true do |t|
