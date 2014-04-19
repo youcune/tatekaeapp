@@ -1,8 +1,9 @@
 
-<div style="background-color:#ece" width="100%">
+
 <h3>参加者一覧 <input type="button" value="内訳表示" onclick="dispUchiwake();" /></h3>
 
-<table border="0"  cellpadding="2px">
+<div class="table-responsive">
+<table class="table table-condensed table-bordered">
   <tr align="left">
     <th>No.</th>
     <th>名前</th>
@@ -42,6 +43,7 @@
   </tr>
 <% end %>
 </table>
+</div>
 <p>
   <% if paticipants.length != 0 %>
   <%= link_to "→ 参加者を削除", "/events/#{event.str_id}/paticipants" %>
@@ -68,8 +70,6 @@ John")%><br />
   <% end %>
 </p>
 
-
-</div>
 
 
 <script type="text/javascript">

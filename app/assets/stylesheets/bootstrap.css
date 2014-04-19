@@ -289,7 +289,7 @@ textarea {
 }
 a {
   color: #428bca;
-  text-decoration: none;
+  text-decoration: underline;
 }
 a:hover,
 a:focus {
