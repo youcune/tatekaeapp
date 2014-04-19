@@ -9,17 +9,18 @@
 </p>
 	
 <p id="notice"><%= flash[:notice] %></p>
-
-<p>
-	<%= render partial:"payment_list",locals:{
-		payments: @event.payments.order("created_at"),
-		event: @event} %>
-</p>
-<p>
-	<%= render partial:"paticipant_list",locals:{
-		paticipants: @event.paticipants.order("created_at"),
-		event: @event} %>
-</p>
+<div class="row">
+	<div class="col-md-6 col-xs-12 bs-example">
+		<%= render partial:"payment_list",locals:{
+			payments: @event.payments.order("created_at"),
+			event: @event} %>
+	</div>
+	<div class="col-md-6 col-xs-12 bs-example">
+		<%= render partial:"paticipant_list",locals:{
+			paticipants: @event.paticipants.order("created_at"),
+			event: @event} %>
+	</div>
+</div>
 <p>
 	このイベントのurl<br />
 	<input type="text" value="<%= @url %>" onTouchstart="this.select()"  onfocus="this.select()"style="width: 60%; font-size:0.8em" /><br />
@@ -35,3 +36,13 @@
 	<%#  link_to '<- イベント一覧', admin_events_path %> 
 </p>
 
+<style type="text/css" media="screen">
+.bs-example{
+	position:relative;
+	padding:0px 15px 15px;
+	margin:0 0px 0px;
+	background-color:#fafafa;
+	box-shadow:inset 0 3px 6px rgba(0,0,0,.05);
+	border-color:#e5e5e5 #eee #eee;border-style:solid;border-width:1px 0
+}
+</style>
