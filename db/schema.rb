@@ -13,14 +13,6 @@
 
 ActiveRecord::Schema.define(:version => 20140413021610) do
 
-  create_table "applicants", :force => true do |t|
-    t.string   "name"
-    t.string   "email"
-    t.integer  "event_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
   create_table "events", :force => true do |t|
     t.string   "name"
     t.string   "description"
@@ -77,34 +69,6 @@ ActiveRecord::Schema.define(:version => 20140413021610) do
     t.integer  "event_id"
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
-  end
-
-  create_table "sankashas", :force => true do |t|
-    t.string   "name"
-    t.integer  "event_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  create_table "tatekaes", :force => true do |t|
-    t.string   "name"
-    t.decimal  "price"
-    t.integer  "sankasha_id"
-    t.integer  "event_id"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
-  end
-
-  create_table "users", :force => true do |t|
-    t.string   "provider"
-    t.string   "uid"
-    t.string   "name"
-    t.string   "image_url"
-    t.string   "email"
-    t.string   "access_token"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
-    t.string   "disp_name"
   end
 
 end
